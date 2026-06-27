@@ -1,0 +1,82 @@
+[gd_scene format=3 uid="uid://c2bt47d5pb43x"]
+
+[ext_resource type="Script" uid="uid://dqjpih1ilo6yu" path="res://scripts/game.gd" id="1_lbhrr"]
+[ext_resource type="PackedScene" uid="uid://bywxtc4atnegj" path="res://scenes/background.tscn" id="1_lnu2h"]
+[ext_resource type="PackedScene" uid="uid://bgpf4jpg3h0rx" path="res://scenes/ground.tscn" id="2_lbhrr"]
+[ext_resource type="PackedScene" uid="uid://crasqyxa7u7po" path="res://scenes/bird.tscn" id="3_iywne"]
+[ext_resource type="PackedScene" uid="uid://eaeja23k8o35" path="res://scenes/sky_boundary.tscn" id="5_iywne"]
+[ext_resource type="Texture2D" uid="uid://x218sp1de1n0" path="res://assets/gameover.png" id="7_u5sy4"]
+
+[node name="Game" type="Node2D" unique_id=1020833843]
+script = ExtResource("1_lbhrr")
+
+[node name="Background" parent="." unique_id=1113412515 instance=ExtResource("1_lnu2h")]
+position = Vector2(144, 256)
+
+[node name="Ground" parent="." unique_id=1491507122 instance=ExtResource("2_lbhrr")]
+position = Vector2(168, 456)
+
+[node name="Bird" parent="." unique_id=659368679 instance=ExtResource("3_iywne")]
+position = Vector2(144, 248)
+
+[node name="SkyBoundary" parent="." unique_id=249147257 instance=ExtResource("5_iywne")]
+position = Vector2(144, -8)
+
+[node name="PipePairTimer" type="Timer" parent="." unique_id=1102369947]
+wait_time = 1.5
+autostart = true
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=2143435806]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI" unique_id=187406690]
+offset_right = 290.0
+offset_bottom = 508.0
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/VBoxContainer" unique_id=1407160735]
+layout_mode = 2
+theme_override_constants/margin_top = 64
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/VBoxContainer/MarginContainer" unique_id=282128336]
+layout_mode = 2
+alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="UI/VBoxContainer/MarginContainer/HBoxContainer" unique_id=1153223048]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 64
+text = "0"
+
+[node name="MarginContainer2" type="MarginContainer" parent="UI/VBoxContainer" unique_id=904593450]
+layout_mode = 2
+theme_override_constants/margin_top = 72
+
+[node name="GameOverUIContainer" type="VBoxContainer" parent="UI/VBoxContainer/MarginContainer2" unique_id=1238613473]
+visible = false
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/VBoxContainer/MarginContainer2/GameOverUIContainer" unique_id=215543826]
+layout_mode = 2
+alignment = 1
+
+[node name="GameOverTextureRect" type="TextureRect" parent="UI/VBoxContainer/MarginContainer2/GameOverUIContainer/HBoxContainer" unique_id=101068486]
+layout_mode = 2
+texture = ExtResource("7_u5sy4")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/VBoxContainer/MarginContainer2/GameOverUIContainer" unique_id=1923889449]
+layout_mode = 2
+theme_override_constants/margin_top = 16
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="UI/VBoxContainer/MarginContainer2/GameOverUIContainer/MarginContainer" unique_id=560815212]
+layout_mode = 2
+alignment = 1
+
+[node name="RetryButton" type="Button" parent="UI/VBoxContainer/MarginContainer2/GameOverUIContainer/MarginContainer/HBoxContainer2" unique_id=334617216]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Retry"
+
+[connection signal="body_entered" from="Ground" to="." method="_on_ground_body_entered"]
+[connection signal="body_entered" from="SkyBoundary" to="." method="_on_sky_boundary_body_entered"]
+[connection signal="timeout" from="PipePairTimer" to="." method="_on_pipe_pair_timer_timeout"]
+[connection signal="pressed" from="UI/VBoxContainer/MarginContainer2/GameOverUIContainer/MarginContainer/HBoxContainer2/RetryButton" to="." method="_on_retry_button_pressed"]

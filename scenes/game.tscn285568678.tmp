@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://c2bt47d5pb43x"]
+
+[ext_resource type="Script" uid="uid://dqjpih1ilo6yu" path="res://scripts/game.gd" id="1_lbhrr"]
+[ext_resource type="PackedScene" uid="uid://bywxtc4atnegj" path="res://scenes/background.tscn" id="1_lnu2h"]
+[ext_resource type="PackedScene" uid="uid://bgpf4jpg3h0rx" path="res://scenes/ground.tscn" id="2_lbhrr"]
+[ext_resource type="PackedScene" uid="uid://crasqyxa7u7po" path="res://scenes/bird.tscn" id="3_iywne"]
+
+[node name="Game" type="Node2D" unique_id=1020833843]
+script = ExtResource("1_lbhrr")
+
+[node name="Background" parent="." unique_id=1113412515 instance=ExtResource("1_lnu2h")]
+position = Vector2(144, 256)
+
+[node name="Bird" parent="." unique_id=659368679 instance=ExtResource("3_iywne")]
+position = Vector2(144, 248)
+
+[node name="Ground" parent="." unique_id=1491507122 instance=ExtResource("2_lbhrr")]
+position = Vector2(168, 456)

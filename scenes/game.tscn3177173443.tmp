@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://c2bt47d5pb43x"]
+
+[ext_resource type="Script" uid="uid://dqjpih1ilo6yu" path="res://scripts/game.gd" id="1_lbhrr"]
+[ext_resource type="PackedScene" uid="uid://bywxtc4atnegj" path="res://scenes/background.tscn" id="1_lnu2h"]
+[ext_resource type="PackedScene" uid="uid://bgpf4jpg3h0rx" path="res://scenes/ground.tscn" id="2_lbhrr"]
+[ext_resource type="PackedScene" uid="uid://crasqyxa7u7po" path="res://scenes/bird.tscn" id="3_iywne"]
+[ext_resource type="PackedScene" uid="uid://eaeja23k8o35" path="res://scenes/sky_boundary.tscn" id="5_iywne"]
+
+[node name="Game" type="Node2D" unique_id=1020833843]
+script = ExtResource("1_lbhrr")
+
+[node name="Background" parent="." unique_id=1113412515 instance=ExtResource("1_lnu2h")]
+position = Vector2(144, 256)
+
+[node name="Ground" parent="." unique_id=1491507122 instance=ExtResource("2_lbhrr")]
+position = Vector2(168, 456)
+
+[node name="Bird" parent="." unique_id=659368679 instance=ExtResource("3_iywne")]
+position = Vector2(144, 248)
+
+[node name="SkyBoundary" parent="." unique_id=249147257 instance=ExtResource("5_iywne")]
+position = Vector2(144, -8)
+
+[node name="PipeTimer" type="Timer" parent="." unique_id=1102369947]
+autostart = true
+
+[connection signal="body_entered" from="Ground" to="." method="_on_ground_body_entered"]
+[connection signal="body_entered" from="SkyBoundary" to="." method="_on_sky_boundary_body_entered"]
+[connection signal="timeout" from="PipeTimer" to="." method="_on_pipe_timer_timeout"]
