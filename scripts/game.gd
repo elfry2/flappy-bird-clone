@@ -12,6 +12,10 @@ const GRAVITY : int = 980
 const BIRD_VELOCITY : int = -300
 const BIRD_ROTATION_SPEED = 2
 const PIPE_PAIR_SCENE = preload('res://scenes/pipe_pair.tscn')
+const OFFSET = {
+	min: -200,
+	max: 100,
+} 
 
 var screen_size
 var is_started : bool = false
@@ -76,13 +80,10 @@ func _spawn_pipe_pair():
 		return
 	print("Spawn!")
 	var pipe_pair = PIPE_PAIR_SCENE.instantiate()
-	var half_screen_height = screen_size.y / 2
-	var ground_sprite_height = ground.sprite1.texture.get_size().y
-	var random_offset = randi_range(-half_screen_height, half_screen_height - ground_sprite_height)
+	var random_offset = randi_range(OFFSET[min], OFFSET[max])
 	#var pipe_sprite_width =  pipe_pair.pipe1.sprite.texture.get_size().x # error: not yet instantiated
 	const PIPE_SPRITE_WIDTH : int = 52
 	pipe_pair.position.y = screen_size.y / 2 + random_offset
-	#pipe_pair.position.x = screen_size.x + sprite_width
 	pipe_pair.position.x = screen_size.x + PIPE_SPRITE_WIDTH
 	pipe_pair.scored.connect(_on_score_area_body_entered)
 	pipe_pair.hita.connect(_on_pipe_hit)
