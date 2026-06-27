@@ -23,7 +23,7 @@ position = Vector2(144, 248)
 position = Vector2(144, -8)
 
 [node name="PipePairTimer" type="Timer" parent="." unique_id=1102369947]
-wait_time = 1.5999999999999999
+wait_time = 1.6
 autostart = true
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=2143435806]
