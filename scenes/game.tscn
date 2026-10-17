@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://chlv6kekjmbcr"]
+
+[ext_resource type="Texture2D" uid="uid://bwf5i0qyei8n0" path="res://assets/background-day.png" id="1_ebmjs"]
+[ext_resource type="Script" uid="uid://c38yct3ies6si" path="res://scripts/global.gd" id="1_iywne"]
+[ext_resource type="PackedScene" uid="uid://cb7sehjyb51qr" path="res://scenes/bird.tscn" id="2_qxrlw"]
+[ext_resource type="PackedScene" uid="uid://dblyxy8yilxwe" path="res://scenes/ground.tscn" id="3_lnu2h"]
+[ext_resource type="Script" uid="uid://b8oxrulmg1dui" path="res://scripts/pipe_pair_generator.gd" id="5_iywne"]
+[ext_resource type="FontFile" uid="uid://cu4lf4od2owng" path="res://assets/font/FlappyBird.ttf" id="6_p57ef"]
+[ext_resource type="Script" uid="uid://cystoc7q1vpel" path="res://scripts/restart_button.gd" id="7_u5sy4"]
+
+[node name="Game" type="Node2D" unique_id=1831867337]
+
+[node name="Global" type="Node2D" parent="." unique_id=1213368129]
+script = ExtResource("1_iywne")
+
+[node name="Background" type="Sprite2D" parent="." unique_id=1311459471]
+position = Vector2(144, 256)
+texture = ExtResource("1_ebmjs")
+
+[node name="Bird" parent="." unique_id=1863348932 instance=ExtResource("2_qxrlw")]
+position = Vector2(144, 256)
+
+[node name="PipePairGenerator" type="Node2D" parent="." unique_id=360599890]
+script = ExtResource("5_iywne")
+
+[node name="Timer" type="Timer" parent="PipePairGenerator" unique_id=1800720589]
+wait_time = 1.5
+autostart = true
+
+[node name="Ground" parent="." unique_id=1617075078 instance=ExtResource("3_lnu2h")]
+z_index = 1
+position = Vector2(0, 503)
+
+[node name="UI" type="Control" parent="." unique_id=142645244]
+z_index = 1
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ScoreLabel" type="Label" parent="UI" unique_id=425697116]
+layout_mode = 0
+offset_right = 287.0
+offset_bottom = 147.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("6_p57ef")
+theme_override_font_sizes/font_size = 64
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RestartButton" type="Button" parent="UI" unique_id=1894941560]
+visible = false
+layout_mode = 0
+offset_left = 105.0
+offset_top = 340.0
+offset_right = 189.0
+offset_bottom = 373.0
+theme_override_fonts/font = ExtResource("6_p57ef")
+theme_override_font_sizes/font_size = 32
+text = "RESTART"
+script = ExtResource("7_u5sy4")
+
+[connection signal="timeout" from="PipePairGenerator/Timer" to="PipePairGenerator" method="_on_timer_timeout"]
+[connection signal="pressed" from="UI/RestartButton" to="UI/RestartButton" method="_on_pressed"]

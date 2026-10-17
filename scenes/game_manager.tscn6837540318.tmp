@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://chlv6kekjmbcr"]
+
+[ext_resource type="Texture2D" uid="uid://bwf5i0qyei8n0" path="res://assets/background-day.png" id="1_eaq8r"]
+[ext_resource type="PackedScene" uid="uid://dblyxy8yilxwe" path="res://scenes/ground.tscn" id="2_ternb"]
+[ext_resource type="PackedScene" uid="uid://cb7sehjyb51qr" path="res://scenes/bird.tscn" id="3_q8mjp"]
+[ext_resource type="Script" uid="uid://b8oxrulmg1dui" path="res://scripts/pipe_pair_factory.gd" id="4_jdad8"]
+[ext_resource type="Script" uid="uid://c38yct3ies6si" path="res://scripts/game_manager.gd" id="5_k4jhu"]
+
+[node name="Game" type="Node2D" unique_id=1831867337]
+
+[node name="Background" type="Sprite2D" parent="." unique_id=1311459471]
+position = Vector2(144, 256)
+texture = ExtResource("1_eaq8r")
+
+[node name="Ground" parent="." unique_id=1617075078 instance=ExtResource("2_ternb")]
+position = Vector2(0, 455)
+
+[node name="Bird" parent="." unique_id=1863348932 instance=ExtResource("3_q8mjp")]
+position = Vector2(144, 256)
+
+[node name="PipePairFactory" type="Node2D" parent="." unique_id=360599890]
+script = ExtResource("4_jdad8")
+
+[node name="Timer" type="Timer" parent="PipePairFactory" unique_id=1800720589]
+
+[node name="GameManager" type="Node" parent="." unique_id=152697376]
+script = ExtResource("5_k4jhu")
+
+[connection signal="timeout" from="PipePairFactory/Timer" to="PipePairFactory" method="_on_timer_timeout"]
